@@ -43,7 +43,7 @@ public class GameMainActivity extends Activity implements OnTouchListener {
 		// Initialize background bitmap
 		background = BitmapFactory.decodeResource(getResources(),R.drawable.background1);
 		//Initialize bubble1 bitmap
-		bubble1 = BitmapFactory.decodeResource(getResources(),R.drawable.bubble1);
+		bubble1 = BitmapFactory.decodeResource(getResources(),R.drawable.bubble2);
 		//Set gameview as ContentView for GameMainActivity
 		setContentView(gameview);	
 	}
