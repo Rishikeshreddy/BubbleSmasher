@@ -23,9 +23,10 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-	
-    public void playGame(View v){
-		
+
+	//Button Click methode
+	public void playGame(View v){
+		// Redirect to the GameMainActivity
 		Intent intent=new Intent(this,GameMainActivity.class);
 		startActivity(intent);
 	}

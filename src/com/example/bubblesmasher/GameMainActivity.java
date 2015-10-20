@@ -102,12 +102,16 @@ public class GameMainActivity extends Activity implements OnTouchListener {
 			// TODO Auto-generated method stub
 		}
 
-		public void GameStarts(Canvas canvas){
+		public void GameStarts(Canvas canvas)// Game start method
+		{
 			//Set whole canvas background color
 			canvas.drawARGB(255, 255, 255, 255);
+			//Create paint to set colors on canvas
 			Paint paint=new Paint();
 			float bottomheight = canvas.getHeight()-1050;
+			// Draw background bitmap with rect on canvas
 			canvas.drawBitmap(background, new Rect(0,0,canvas.getWidth(),(int) (canvas.getHeight()-bottomheight)), new Rect(0,0,canvas.getWidth(),(int) (canvas.getHeight()-bottomheight)), paint);;
+			// Draw bubble bitmap on canvas
 			canvas.drawBitmap(bubble1, 200, 200, null);
 			paint.setColor(Color.GREEN);
 			// Creating leaves
@@ -116,7 +120,7 @@ public class GameMainActivity extends Activity implements OnTouchListener {
 			canvas.drawCircle(canvas.getWidth()/1.05f,canvas.getHeight()/25 , 15, paint);
 			//Set water color to paint
 			paint.setColor(Color.rgb( 135, 206, 250));
-			// Draw water on canvas
+			// Draw waterlevel on canvas
 			canvas.drawRect(0, 1050, canvas.getWidth(), canvas.getHeight(), paint);
 		}
 
