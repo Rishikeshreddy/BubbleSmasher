@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -89,6 +90,7 @@ public class GameMainActivity extends Activity implements OnTouchListener {
 		}
 
 		public void run() {
+			//threadGame.start();
 			while (isItOk==true){
 				// Perform Canvas Drawing
 				if(!holder.getSurface().isValid()){
@@ -159,12 +161,22 @@ public class GameMainActivity extends Activity implements OnTouchListener {
 
 	public boolean onTouch(View v, MotionEvent me) {
 		// TODO Auto-generated method stub
+		//Create new variable to get x point of touch
+		float touchX = me.getX();
+		//Create new variable to get y point of touch
+		float touchY = me.getY();
 		switch(me.getAction()){
 		case MotionEvent.ACTION_DOWN:
+			//Get x and y points of touch when user's finger touch on screen 
+			Log.i("Touch Points", "X : "+touchX+ " Y: "+touchY);
 			break;
 		case MotionEvent.ACTION_UP:
+			//Get x and y points of touch when user take away finger from screen
+			Log.i("Touch Points", "X : "+touchX+ " Y: "+touchY);
 			break;
 		case MotionEvent.ACTION_MOVE:
+			//Get x and y points of touch when user move finger from one point to another
+			Log.i("Touch Points", "X : "+touchX+ " Y: "+touchY);
 			break;
 		}
 		return true;
