@@ -31,6 +31,14 @@ public class GameMainActivity extends Activity implements OnTouchListener {
 	Bitmap bubble1 = null;
 	// Create thread to pause and resume game
 	Thread threadGame = null;
+	float bubbleX,bubbleY;
+	int randomY = 5;
+	int randomX = 5;
+	int Score=0;
+	int speedX = 1;
+	int rangeX = 370;
+	int speedY= 15;
+	int rangeY= 25;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -114,13 +122,15 @@ public class GameMainActivity extends Activity implements OnTouchListener {
 			canvas.drawARGB(255, 255, 255, 255);
 			// Create paint to set colors on canvas
 			Paint paint = new Paint();
+			setGameConditions();
+
 			float bottomheight = canvas.getHeight() - 1050;
 			// Draw background bitmap with rect on canvas
 			canvas.drawBitmap(background, new Rect(0, 0, canvas.getWidth(), (int) (canvas.getHeight() - bottomheight)),
 					new Rect(0, 0, canvas.getWidth(), (int) (canvas.getHeight() - bottomheight)), paint);
 			;
 			// Draw bubble bitmap on canvas
-			canvas.drawBitmap(bubble1, 200, 200, null);
+			canvas.drawBitmap(bubble1, bubbleX, bubbleX, null);
 			paint.setColor(Color.GREEN);
 			// Creating leaves
 			canvas.drawCircle(canvas.getWidth() / 1.27f, canvas.getHeight() / 25, 15, paint);
@@ -131,6 +141,19 @@ public class GameMainActivity extends Activity implements OnTouchListener {
 			// Draw waterlevel on canvas
 			canvas.drawRect(0, 1050, canvas.getWidth(), canvas.getHeight(), paint);
 		}
+		
+		public void setGameConditions(){
+			
+				if (bubbleY<800){
+					bubbleY=bubbleY+randomY;
+				}
+				else{
+					bubbleY=0;
+					randomY =(int)((Math.random() * rangeY)+speedY);
+					randomX = (int)((Math.random()*rangeX)+speedY);
+					bubbleX=randomX;
+				}
+			}
 
 		public void pause() {
 			isItOk = false;
