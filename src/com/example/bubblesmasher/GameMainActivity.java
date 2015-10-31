@@ -200,18 +200,28 @@ public class GameMainActivity extends Activity implements OnTouchListener {
 		case MotionEvent.ACTION_DOWN:
 			// Get x and y points of touch when user's finger touch on screen
 			Log.i("Touch Points", "X : " + touchX + " Y: " + touchY);
+			Getbubblelocation(bubbleX,bubbleY);
 			break;
 		case MotionEvent.ACTION_UP:
 			// Get x and y points of touch when user take away finger from
 			// screen
 			Log.i("Touch Points", "X : " + touchX + " Y: " + touchY);
+			Getbubblelocation(bubbleX,bubbleY);
 			break;
 		case MotionEvent.ACTION_MOVE:
 			// Get x and y points of touch when user move finger from one point
 			// to another
-			Log.i("Touch Points", "X : " + touchX + " Y: " + touchY);
+       		Log.i("Touch Points", "X : " + touchX + " Y: " + touchY);
+			Getbubblelocation(bubbleX,bubbleY);
 			break;
 		}
 		return true;
 	}
+	
+	public void Getbubblelocation(float bubbleX, float bubbleY){
+		
+	    Log.i("Bubble Location when user touch ","bubbleX: "+bubbleX + " bubbleY"+bubbleY);
+	}
+	
+	
 }
