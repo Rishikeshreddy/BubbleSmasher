@@ -23,14 +23,14 @@ import android.view.Window;
 import android.view.WindowManager;
 
 public class GameMainActivity extends Activity implements OnTouchListener {
-	//Create GameView object.
+	// Create GameView object.
 	GameView gameview;
-	//Create new bitmap for background image
+	// Create new bitmap for background image
 	Bitmap background = null;
-	//Create new Bitmap for bubble.
+	// Create new Bitmap for bubble.
 	Bitmap bubble1 = null;
-	//Create thread to pause and resume game
-	Thread threadGame=null;
+	// Create thread to pause and resume game
+	Thread threadGame = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,15 +38,15 @@ public class GameMainActivity extends Activity implements OnTouchListener {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		// Make full screen
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		//Create new GameView
+		// Create new GameView
 		gameview = new GameView(this);
 		gameview.setOnTouchListener(this);
 		// Initialize background bitmap
-		background = BitmapFactory.decodeResource(getResources(),R.drawable.background1);
-		//Initialize bubble1 bitmap
-		bubble1 = BitmapFactory.decodeResource(getResources(),R.drawable.bubble2);
-		//Set gameview as ContentView for GameMainActivity
-		setContentView(gameview);	
+		background = BitmapFactory.decodeResource(getResources(), R.drawable.background1);
+		// Initialize bubble1 bitmap
+		bubble1 = BitmapFactory.decodeResource(getResources(), R.drawable.bubble2);
+		// Set gameview as ContentView for GameMainActivity
+		setContentView(gameview);
 	}
 
 	@Override
@@ -76,11 +76,11 @@ public class GameMainActivity extends Activity implements OnTouchListener {
 		gameview.pause();
 	}
 
-	//Create new SurfaceView class
+	// Create new SurfaceView class
 	public class GameView extends SurfaceView implements Runnable {
 		// Create SurfaceHolder to manage SurfaceView Activities
 		SurfaceHolder holder;
-		//Create boolean to check the status of game
+		// Create boolean to check the status of game
 		boolean isItOk = false;
 
 		public GameView(Context context) {
@@ -90,13 +90,17 @@ public class GameMainActivity extends Activity implements OnTouchListener {
 		}
 
 		public void run() {
-			//threadGame.start();
-			while (isItOk==true){
+			if(threadGame==null){
+				threadGame = new Thread(this);
+				threadGame.start();
+			}
+			// threadGame.start();
+			while (isItOk == true) {
 				// Perform Canvas Drawing
-				if(!holder.getSurface().isValid()){
+				if (!holder.getSurface().isValid()) {
 					continue;
 				}
-				//Create Canvas to draw bitmaps
+				// Create Canvas to draw bitmaps
 				Canvas canvas = holder.lockCanvas();
 				GameStarts(canvas);
 				holder.unlockCanvasAndPost(canvas);
@@ -106,44 +110,47 @@ public class GameMainActivity extends Activity implements OnTouchListener {
 
 		public void GameStarts(Canvas canvas)// Game start method
 		{
-			//Set whole canvas background color
+			// Set whole canvas background color
 			canvas.drawARGB(255, 255, 255, 255);
-			//Create paint to set colors on canvas
-			Paint paint=new Paint();
-			float bottomheight = canvas.getHeight()-1050;
+			// Create paint to set colors on canvas
+			Paint paint = new Paint();
+			float bottomheight = canvas.getHeight() - 1050;
 			// Draw background bitmap with rect on canvas
-			canvas.drawBitmap(background, new Rect(0,0,canvas.getWidth(),(int) (canvas.getHeight()-bottomheight)), new Rect(0,0,canvas.getWidth(),(int) (canvas.getHeight()-bottomheight)), paint);;
+			canvas.drawBitmap(background, new Rect(0, 0, canvas.getWidth(), (int) (canvas.getHeight() - bottomheight)),
+					new Rect(0, 0, canvas.getWidth(), (int) (canvas.getHeight() - bottomheight)), paint);
+			;
 			// Draw bubble bitmap on canvas
 			canvas.drawBitmap(bubble1, 200, 200, null);
 			paint.setColor(Color.GREEN);
 			// Creating leaves
-			canvas.drawCircle(canvas.getWidth()/1.27f,canvas.getHeight()/25 , 15, paint);
-			canvas.drawCircle(canvas.getWidth()/1.15f,canvas.getHeight()/25 , 15, paint);
-			canvas.drawCircle(canvas.getWidth()/1.05f,canvas.getHeight()/25 , 15, paint);
-			//Set water color to paint
-			paint.setColor(Color.rgb( 135, 206, 250));
+			canvas.drawCircle(canvas.getWidth() / 1.27f, canvas.getHeight() / 25, 15, paint);
+			canvas.drawCircle(canvas.getWidth() / 1.15f, canvas.getHeight() / 25, 15, paint);
+			canvas.drawCircle(canvas.getWidth() / 1.05f, canvas.getHeight() / 25, 15, paint);
+			// Set water color to paint
+			paint.setColor(Color.rgb(135, 206, 250));
 			// Draw waterlevel on canvas
 			canvas.drawRect(0, 1050, canvas.getWidth(), canvas.getHeight(), paint);
 		}
 
-		public void pause(){
-			isItOk=false;
-			while(true){
-				try{
+		public void pause() {
+			isItOk = false;
+			while (true) {
+				try {
 					threadGame.join();
-				}
-				catch(InterruptedException e){
+				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 				break;
 			}
-			threadGame=null;
+			threadGame = null;
 		}
 
-		public void resume(){
+		public void resume() {
 			isItOk = true;
+			if(threadGame==null){
 			threadGame = new Thread(this);
 			threadGame.start();
+			}
 		}
 	}
 
@@ -161,22 +168,24 @@ public class GameMainActivity extends Activity implements OnTouchListener {
 
 	public boolean onTouch(View v, MotionEvent me) {
 		// TODO Auto-generated method stub
-		//Create new variable to get x point of touch
+		// Create new variable to get x point of touch
 		float touchX = me.getX();
-		//Create new variable to get y point of touch
+		// Create new variable to get y point of touch
 		float touchY = me.getY();
-		switch(me.getAction()){
+		switch (me.getAction()) {
 		case MotionEvent.ACTION_DOWN:
-			//Get x and y points of touch when user's finger touch on screen 
-			Log.i("Touch Points", "X : "+touchX+ " Y: "+touchY);
+			// Get x and y points of touch when user's finger touch on screen
+			Log.i("Touch Points", "X : " + touchX + " Y: " + touchY);
 			break;
 		case MotionEvent.ACTION_UP:
-			//Get x and y points of touch when user take away finger from screen
-			Log.i("Touch Points", "X : "+touchX+ " Y: "+touchY);
+			// Get x and y points of touch when user take away finger from
+			// screen
+			Log.i("Touch Points", "X : " + touchX + " Y: " + touchY);
 			break;
 		case MotionEvent.ACTION_MOVE:
-			//Get x and y points of touch when user move finger from one point to another
-			Log.i("Touch Points", "X : "+touchX+ " Y: "+touchY);
+			// Get x and y points of touch when user move finger from one point
+			// to another
+			Log.i("Touch Points", "X : " + touchX + " Y: " + touchY);
 			break;
 		}
 		return true;

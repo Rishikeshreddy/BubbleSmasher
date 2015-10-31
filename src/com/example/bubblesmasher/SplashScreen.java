@@ -9,7 +9,7 @@ import android.view.MenuItem;
 
 public class SplashScreen extends Activity {
 	//Set time for spashscreen
-	private static final long SPLASH_TIME_OUT = 3000;
+	private static final long SPLASH_TIME_OUT = 1000;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
