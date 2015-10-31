@@ -32,8 +32,8 @@ public class GameMainActivity extends Activity implements OnTouchListener {
 	// Create thread to pause and resume game
 	Thread threadGame = null;
 	float bubbleX,bubbleY;
-	int randomY = 5;
-	int randomX = 5;
+	int randomY = 20;
+	int randomX = 30;
 	int Score=0;
 	int speedX = 1;
 	int rangeX = 370;
@@ -54,6 +54,7 @@ public class GameMainActivity extends Activity implements OnTouchListener {
 		// Initialize bubble1 bitmap
 		bubble1 = BitmapFactory.decodeResource(getResources(), R.drawable.bubble2);
 		// Set gameview as ContentView for GameMainActivity
+		bubbleX=bubbleY=0;
 		setContentView(gameview);
 	}
 
@@ -130,7 +131,7 @@ public class GameMainActivity extends Activity implements OnTouchListener {
 					new Rect(0, 0, canvas.getWidth(), (int) (canvas.getHeight() - bottomheight)), paint);
 			;
 			// Draw bubble bitmap on canvas
-			canvas.drawBitmap(bubble1, bubbleX, bubbleX, null);
+			canvas.drawBitmap(bubble1, bubbleX, bubbleY, null);
 			paint.setColor(Color.GREEN);
 			// Creating leaves
 			canvas.drawCircle(canvas.getWidth() / 1.27f, canvas.getHeight() / 25, 15, paint);
