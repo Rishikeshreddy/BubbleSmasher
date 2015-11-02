@@ -43,6 +43,7 @@ public class GameMainActivity extends Activity implements OnTouchListener {
 	int waterlevel=800;
 	int bubbleround=0;
 	boolean isbubblerunning=false;
+	boolean istouchenable=true;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -225,20 +226,24 @@ public class GameMainActivity extends Activity implements OnTouchListener {
 		switch (me.getAction()) {
 		case MotionEvent.ACTION_DOWN:
 			// Get x and y points of touch when user's finger touch on screen
-			Log.i("Touch Points", "X : " + touchX + " Y: " + touchY);
-			Getbubblelocation(bubbleX,bubbleY);
+			//Log.i("Touch Points", "X : " + touchX + " Y: " + touchY);
+			//Getbubblelocation(bubbleX,bubbleY);
 			break;
 		case MotionEvent.ACTION_UP:
+			if(isTouchinRadius(me.getX(), me.getY(),bubbleX,bubbleY)&& istouchenable){
+				istouchenable = false;
+				TouchChanges();
+			}
 			// Get x and y points of touch when user take away finger from
 			// screen
-			Log.i("Touch Points", "X : " + touchX + " Y: " + touchY);
-			Getbubblelocation(bubbleX,bubbleY);
+			//Log.i("Touch Points", "X : " + touchX + " Y: " + touchY);
+			//Getbubblelocation(bubbleX,bubbleY);
 			break;
 		case MotionEvent.ACTION_MOVE:
 			// Get x and y points of touch when user move finger from one point
 			// to another
-       		Log.i("Touch Points", "X : " + touchX + " Y: " + touchY);
-			Getbubblelocation(bubbleX,bubbleY);
+       		//Log.i("Touch Points", "X : " + touchX + " Y: " + touchY);
+			//Getbubblelocation(bubbleX,bubbleY);
 			break;
 		}
 		return true;
@@ -247,6 +252,35 @@ public class GameMainActivity extends Activity implements OnTouchListener {
 	public void Getbubblelocation(float bubbleX, float bubbleY){
 		
 	    Log.i("Bubble Location when user touch ","bubbleX: "+bubbleX + " bubbleY"+bubbleY);
+	}
+	
+	public boolean isTouchinRadius(float xPoint, float yPoint, float bubbleX, float bubbleY){
+		float xEnd = bubbleX+bubble1.getWidth();
+		float yEnd = bubbleY+bubble1.getHeight();
+	    Log.i("Touch Points", "Touch x = "+ xPoint+ " Touch y = "+ yPoint + " x = " + bubbleX +" y = " + bubbleY + " x end = "+ xEnd + " y end = " + yEnd);
+		if (xPoint >= bubbleX && xPoint<=xEnd){
+			  if (yPoint >=bubbleY && yPoint<=yEnd){
+				    return true;  
+			  }
+			  else return false;
+		}	
+		else return false;
+	}
+
+	public void TouchChanges(){
+		bubbleY=-100;
+		randomY =(int)((Math.random() * rangeY)+speedY);
+		randomX = (int)((Math.random()*rangeX)+speedY);
+		bubbleX=randomX;
+		Score++;
+		bubbleround++;
+		Log.i("Score : ", String.valueOf(Score));
+		try {
+			Thread.sleep(00);
+			istouchenable = true;
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
