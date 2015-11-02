@@ -39,6 +39,8 @@ public class GameMainActivity extends Activity implements OnTouchListener {
 	int rangeX = 370;
 	int speedY= 15;
 	int rangeY= 25;
+	int life=3;
+	int waterlevel=800;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -134,9 +136,20 @@ public class GameMainActivity extends Activity implements OnTouchListener {
 			canvas.drawBitmap(bubble1, bubbleX, bubbleY, null);
 			paint.setColor(Color.GREEN);
 			// Creating leaves
+			if(life>=3){
 			canvas.drawCircle(canvas.getWidth() / 1.27f, canvas.getHeight() / 25, 15, paint);
 			canvas.drawCircle(canvas.getWidth() / 1.15f, canvas.getHeight() / 25, 15, paint);
 			canvas.drawCircle(canvas.getWidth() / 1.05f, canvas.getHeight() / 25, 15, paint);
+			}
+			else if(life==2){
+				paint.setColor(Color.YELLOW);
+				canvas.drawCircle(canvas.getWidth() / 1.15f, canvas.getHeight() / 25, 15, paint);
+				canvas.drawCircle(canvas.getWidth() / 1.05f, canvas.getHeight() / 25, 15, paint);
+			}
+			else if(life==1){
+				paint.setColor(Color.RED);
+				canvas.drawCircle(canvas.getWidth() / 1.05f, canvas.getHeight() / 25, 15, paint);
+			}
 			// Set water color to paint
 			paint.setColor(Color.rgb(135, 206, 250));
 			// Draw waterlevel on canvas
@@ -145,14 +158,19 @@ public class GameMainActivity extends Activity implements OnTouchListener {
 		
 		public void setGameConditions(){
 			
-				if (bubbleY<800){
+				if (bubbleY<waterlevel &life>0){
 					bubbleY=bubbleY+randomY;
 				}
 				else{
 					bubbleY=0;
+					life--;
 					randomY =(int)((Math.random() * rangeY)+speedY);
 					randomX = (int)((Math.random()*rangeX)+speedY);
 					bubbleX=randomX;
+					if(life<1){
+						bubbleX=-200;
+						bubbleY=-200;
+					}
 				}
 			}
 
