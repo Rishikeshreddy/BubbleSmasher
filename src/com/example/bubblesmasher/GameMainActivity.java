@@ -41,6 +41,8 @@ public class GameMainActivity extends Activity implements OnTouchListener {
 	int rangeY= 25;
 	int life=3;
 	int waterlevel=800;
+	int bubbleround=0;
+	boolean isbubblerunning=false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -121,6 +123,7 @@ public class GameMainActivity extends Activity implements OnTouchListener {
 
 		public void GameStarts(Canvas canvas)// Game start method
 		{
+			isbubblerunning=true;
 			// Set whole canvas background color
 			canvas.drawARGB(255, 255, 255, 255);
 			// Create paint to set colors on canvas
@@ -150,6 +153,8 @@ public class GameMainActivity extends Activity implements OnTouchListener {
 				paint.setColor(Color.RED);
 				canvas.drawCircle(canvas.getWidth() / 1.05f, canvas.getHeight() / 25, 15, paint);
 			}
+			else if(life==0)
+				isbubblerunning=false;
 			// Set water color to paint
 			paint.setColor(Color.rgb(135, 206, 250));
 			// Draw waterlevel on canvas
@@ -158,16 +163,19 @@ public class GameMainActivity extends Activity implements OnTouchListener {
 		
 		public void setGameConditions(){
 			
-				if (bubbleY<waterlevel &life>0){
+				if (bubbleY<waterlevel &life>0 &isbubblerunning){
 					bubbleY=bubbleY+randomY;
 				}
 				else{
+					if(life==0)
+					  isbubblerunning=false;
 					bubbleY=0;
 					life--;
-					randomY =(int)((Math.random() * rangeY)+speedY);
+					bubbleround++;
+					randomY =(int)((Math.random()*rangeY)+speedY);
 					randomX = (int)((Math.random()*rangeX)+speedY);
 					bubbleX=randomX;
-					if(life<1){
+					if(life<1 & isbubblerunning){
 						bubbleX=-200;
 						bubbleY=-200;
 					}
