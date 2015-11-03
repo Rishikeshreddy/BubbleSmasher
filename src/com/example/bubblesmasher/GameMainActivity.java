@@ -10,6 +10,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Paint.Style;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -145,7 +146,7 @@ public class GameMainActivity extends Activity implements OnTouchListener {
 			// Draw background bitmap with rect on canvas
 			canvas.drawBitmap(background, new Rect(0, 0, canvas.getWidth(), (int) (canvas.getHeight() - bottomheight)),
 					new Rect(0, 0, canvas.getWidth(), (int) (canvas.getHeight() - bottomheight)), paint);
-			;
+		
 			// Draw bubble bitmap on canvas
 			canvas.drawBitmap(bubble1, bubbleX, bubbleY, null);
 			paint.setColor(Color.GREEN);
@@ -166,6 +167,16 @@ public class GameMainActivity extends Activity implements OnTouchListener {
 			}
 			else if(life==0)
 				isbubblerunning=false;
+			
+			paint.setColor(Color.RED);
+			paint.setTextSize(50);
+			paint.setStyle(Style.FILL);
+			paint.setShadowLayer(10f, 10f, 10f, Color.RED);
+			//create condition to check score is zero or not. draw score on canvas
+			if(life>0)canvas.drawText(String.valueOf(Score), 10, 60, paint);
+			else {
+				canvas.drawText("Game over \nYour Score is : "+ String.valueOf(Score), 10, 60, paint);
+			}
 			// Set water color to paint
 			paint.setColor(Color.rgb(135, 206, 250));
 			// Draw waterlevel on canvas
@@ -190,7 +201,7 @@ public class GameMainActivity extends Activity implements OnTouchListener {
 					//generate a number to set x position of bubble
 					randomX = (int)((Math.random()*rangeX)+speedY);
 					bubbleX=randomX;
-					if(life<1 & isbubblerunning){
+					if(life<1){
 						bubbleX=-200;
 						bubbleY=-200;
 					}
