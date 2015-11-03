@@ -31,18 +31,28 @@ public class GameMainActivity extends Activity implements OnTouchListener {
 	Bitmap bubble1 = null;
 	// Create thread to pause and resume game
 	Thread threadGame = null;
+	//create float variables for bubble x position and y position  
 	float bubbleX,bubbleY;
+	//to generate random number for random bubblr speed
 	int randomY = 20;
 	int randomX = 30;
+	//to store score
 	int Score=0;
+	//to set range of x position
 	int speedX = 1;
 	int rangeX = 370;
+	//to set range of y position
 	int speedY= 15;
 	int rangeY= 25;
+	//to set lives
 	int life=3;
+	//to set waterlevel
 	int waterlevel=800;
+	//to set bubble rounds
 	int bubbleround=0;
+	//check status of bubble
 	boolean isbubblerunning=false;
+	//to enable and disable touch of bubble	
 	boolean istouchenable=true;
 
 	@Override
@@ -139,7 +149,7 @@ public class GameMainActivity extends Activity implements OnTouchListener {
 			// Draw bubble bitmap on canvas
 			canvas.drawBitmap(bubble1, bubbleX, bubbleY, null);
 			paint.setColor(Color.GREEN);
-			// Creating leaves
+			// create lives according to left lives
 			if(life>=3){
 			canvas.drawCircle(canvas.getWidth() / 1.27f, canvas.getHeight() / 25, 15, paint);
 			canvas.drawCircle(canvas.getWidth() / 1.15f, canvas.getHeight() / 25, 15, paint);
@@ -163,7 +173,7 @@ public class GameMainActivity extends Activity implements OnTouchListener {
 		}
 		
 		public void setGameConditions(){
-			
+			    //check bubble y position is less then waterlevel or not
 				if (bubbleY<waterlevel &life>0 &isbubblerunning){
 					bubbleY=bubbleY+randomY;
 				}
@@ -171,9 +181,13 @@ public class GameMainActivity extends Activity implements OnTouchListener {
 					if(life==0)
 					  isbubblerunning=false;
 					bubbleY=0;
+					//decrease life
 					life--;
+					//increase bubble rounds
 					bubbleround++;
+					//generate a number to set bubble speed
 					randomY =(int)((Math.random()*rangeY)+speedY);
+					//generate a number to set x position of bubble
 					randomX = (int)((Math.random()*rangeX)+speedY);
 					bubbleX=randomX;
 					if(life<1 & isbubblerunning){
@@ -254,6 +268,7 @@ public class GameMainActivity extends Activity implements OnTouchListener {
 	    Log.i("Bubble Location when user touch ","bubbleX: "+bubbleX + " bubbleY"+bubbleY);
 	}
 	
+	//create method to check touch is on bubble radius or not 
 	public boolean isTouchinRadius(float xPoint, float yPoint, float bubbleX, float bubbleY){
 		float xEnd = bubbleX+bubble1.getWidth();
 		float yEnd = bubbleY+bubble1.getHeight();
@@ -267,6 +282,7 @@ public class GameMainActivity extends Activity implements OnTouchListener {
 		else return false;
 	}
 
+	//if touch is on bubble radius then make bubble disappear and make new bubble to come from top
 	public void TouchChanges(){
 		bubbleY=-100;
 		randomY =(int)((Math.random() * rangeY)+speedY);
