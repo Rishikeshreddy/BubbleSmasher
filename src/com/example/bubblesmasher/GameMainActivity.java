@@ -539,9 +539,11 @@ public class GameMainActivity extends Activity implements OnTouchListener {
 			} else if (bubblecurrent == bubblelife)
 				life = life + 1;
 			else if (bubblecurrent == bubbledirty){
-				life=0;
-				bubbleX=-500;
-				bubbleY=-500;
+				life--;
+				if(life==0){
+					bubbleX=-500;
+					bubbleY=-500;
+				}
 			}
 			else
 				Score++;
