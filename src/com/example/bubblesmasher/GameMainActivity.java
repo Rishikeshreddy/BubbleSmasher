@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -13,6 +14,7 @@ import android.graphics.Rect;
 import android.graphics.Paint.Style;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -562,5 +564,21 @@ public class GameMainActivity extends Activity implements OnTouchListener {
 			}
 		}
 	}
+	@Override
+	//Get event when user click on back key button
+	public boolean onKeyDown(int keyCode, KeyEvent event)  {
+	      if (keyCode == KeyEvent.KEYCODE_BACK) {
+	    	  Log.i("Back key pressed", " Yes");
+	    	  //Create intent to send requested data to the mainactivity
+				Intent intent = new Intent();
+				intent.putExtra("newscore", ""+Score);
+				setResult(RESULT_OK, intent);
+				finish();
+	          return true;
+	      }
+
+	   return super.onKeyDown(keyCode, event);
+	}
+
 
 }

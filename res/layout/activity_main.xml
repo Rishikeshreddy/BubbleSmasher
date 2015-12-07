@@ -22,13 +22,63 @@
         	android:layout_height="wrap_content"
         />
         <Button 
+        android:id="@+id/btnplaygame"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="190dp"
+            android:layout_marginTop="20dp"
             android:text="Play Game"
             android:onClick="playGame"
             />
+         <Button 
+            android:id="@+id/btnhignscore"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="110dp"
+            android:text="High Score"
+            android:onClick="highScore"
+            
+            />
+          <Button 
+            android:id="@+id/btnlogin"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="200dp"
+            android:text="Login"
+            android:onClick="LoginClick"
+            
+            />
+          
+          <Button 
+            android:id="@+id/btnsignup"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="290dp"
+            android:text="SignUp"
+            android:onClick="SignUpClick"
+            
+            />
+          
         
     </FrameLayout>
+
+   <TextView
+       android:id="@+id/textViewLoginName"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignParentTop="true"
+       android:layout_centerHorizontal="true"
+       android:layout_marginTop="8dp"     
+       android:layout_marginLeft="200dp"
+       android:text="a" />
+
+   <TextView
+       android:id="@+id/textViewScore"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignBaseline="@+id/textViewLoginName"
+       android:layout_alignBottom="@+id/textViewLoginName"
+       android:layout_marginLeft="48dp"
+       android:layout_toRightOf="@+id/textViewLoginName"
+       android:text="0" />
 
 </RelativeLayout>
