@@ -48,7 +48,7 @@ public class SignUp extends Activity {
 	// create username and password string
 	static String strusername;
 	static String strpassword;
-	String score = "0";
+	static String score = "0";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
